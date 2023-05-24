@@ -56,15 +56,16 @@ select * from students
 order by age;
 
 -- 9.Hiển thị tổng số lượng học viên của mỗi lớp
-select classes.name, count(classes.name) as tong_so_hs_cua_lop from students
+select classes.name, count(students.class_id) as tong_so_hs_cua_lop from students
 join classes on students.class_id = classes.id
-group by classes.name;
+group by students.class_id;
 
 -- Tạo view class:
 create view student_infor as
 select classes.name, count(classes.name) as so_luong_hs from students
 join classes on students.class_id = classes.id
 group by classes.name;
+
 
 -- 10.Hiển thị lớp có số lượng học viên là đông nhất
 select * from student_infor
@@ -95,8 +96,7 @@ select *from students
 where age = (select max(age) from students);
 -- c2:
 select * from students
-order by age desc
-limit 1;
+order by age desc;
 
 -- 16. Hiển thị học viên có tuổi nhỏ nhất
 select * from students
@@ -119,8 +119,20 @@ end
 // delimiter ;
  call get_2nd_max_age();
  
+ 
+ 
+ delimiter //
+create procedure get_2nd_max_age123()
+begin
+select max(age) from students into @max_age;
+select max(age) from students where age < @max_age into @max_age;
+select * from students where age = (@max_age);
+end
+// delimiter ;
+ call get_2nd_max_age123();
+ 
+ 
 -- 20.Hiển thị học viện có số tuổi nhỏ thứ hai
-delimiter //
 
 delimiter //
 create procedure get_2nd_min_age()
