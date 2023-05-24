@@ -40,8 +40,6 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Admin.jsp");
             dispatcher.forward(request, response);
         } else {
-            String name = request.getParameter("username");
-            request.setAttribute("name1",name);
             RequestDispatcher dispatcher = request.getRequestDispatcher("User.jsp");
             dispatcher.forward(request, response);
         }
