@@ -134,12 +134,64 @@ order by ma_so_thue;
 -- cung cấp là “20/11/2015”
 select nha_cung_cap.ten_nha_cc, count(nha_cung_cap.ten_nha_cc) as so_lan_dk from dang_ky_cc
 join nha_cung_cap on dang_ky_cc.ma_nha_cc = nha_cung_cap.ma_nha_cc
-where ngay_bd_cc > "2015/11/20"
+where ngay_bd_cc = "2015/11/20"
 group by nha_cung_cap.ten_nha_cc;
 
 
 -- Liệt kê tên của toàn bộ các hãng xe có trong cơ sở dữ liệu với yêu cầu mỗi hãng xe
 -- chỉ được liệt kê một lần
+select dong_xe.hang_xe  from dong_xe
+group by dong_xe.hang_xe;
+
+
+-- Liệt kê MaDKCC, MaNhaCC, TenNhaCC, DiaChi, MaSoThue, TenLoaiDV, DonGia,
+-- HangXe, NgayBatDauCC, NgayKetThucCC của tất cả các lần đăng ký cung cấp phương
+-- tiện với yêu cầu những nhà cung cấp nào chưa từng thực hiện đăng ký cung cấp phương tiện
+-- thì cũng liệt kê thông tin những nhà cung cấp đó ra
+
+select dang_ky_cc.ma_dk_cc, nha_cung_cap.ma_nha_cc, nha_cung_cap.ten_nha_cc, nha_cung_cap.dia_chi, nha_cung_cap.ma_so_thue, loai_dich_vu.ten_loai_dv, muc_phi.don_gia,
+dong_xe.hang_xe, dang_ky_cc.ngay_bd_cc, dang_ky_cc.ngay_kt_cc from dang_ky_cc
+join loai_dich_vu on dang_ky_cc.ma_loai_dv = loai_dich_vu.ma_loai_dv
+join muc_phi on dang_ky_cc.muc_phi = muc_phi.ma_mp
+join dong_xe on dang_ky_cc.dong_xe = dong_xe.dong_xe
+right join nha_cung_cap on dang_ky_cc.ma_nha_cc = nha_cung_cap.ma_nha_cc;
+
+
+-- Liệt kê thông tin của các nhà cung cấp đã từng đăng ký cung cấp phương tiện
+-- thuộc dòng xe “Hiace” hoặc từng đăng ký cung cấp phương tiện thuộc dòng xe “Cerato”
+select distinct nha_cung_cap.ma_nha_cc, nha_cung_cap.ten_nha_cc, nha_cung_cap.dia_chi, nha_cung_cap.so_dt, nha_cung_cap.ma_so_thue from dang_ky_cc
+join nha_cung_cap on dang_ky_cc.ma_nha_cc = nha_cung_cap.ma_nha_cc
+join dong_xe on dang_ky_cc.dong_xe = dong_xe.dong_xe
+where dang_ky_cc.dong_xe = "Hiace" or dang_ky_cc.dong_xe = "Cerato";
+
+
+
+-- Liệt kê thông tin của các nhà cung cấp chưa từng thực hiện đăng ký cung cấp
+-- phương tiện lần nào cả.
+
+-- c1:
+create view nha_cc as
+select dang_ky_cc.ma_dk_cc, nha_cung_cap.ma_nha_cc, nha_cung_cap.ten_nha_cc, nha_cung_cap.dia_chi, nha_cung_cap.ma_so_thue, loai_dich_vu.ten_loai_dv, muc_phi.don_gia,
+dong_xe.hang_xe, dang_ky_cc.ngay_bd_cc, dang_ky_cc.ngay_kt_cc from dang_ky_cc
+join loai_dich_vu on dang_ky_cc.ma_loai_dv = loai_dich_vu.ma_loai_dv
+join muc_phi on dang_ky_cc.muc_phi = muc_phi.ma_mp
+join dong_xe on dang_ky_cc.dong_xe = dong_xe.dong_xe
+right join nha_cung_cap on dang_ky_cc.ma_nha_cc = nha_cung_cap.ma_nha_cc;
+select* from nha_cc;
+select * from nha_cc
+where ma_dk_cc is null;
+
+-- c2:
+select dang_ky_cc.ma_dk_cc, nha_cung_cap.ma_nha_cc, nha_cung_cap.ten_nha_cc, nha_cung_cap.dia_chi, nha_cung_cap.ma_so_thue, loai_dich_vu.ten_loai_dv, muc_phi.don_gia,
+dong_xe.hang_xe, dang_ky_cc.ngay_bd_cc, dang_ky_cc.ngay_kt_cc from dang_ky_cc
+join loai_dich_vu on dang_ky_cc.ma_loai_dv = loai_dich_vu.ma_loai_dv
+join muc_phi on dang_ky_cc.muc_phi = muc_phi.ma_mp
+join dong_xe on dang_ky_cc.dong_xe = dong_xe.dong_xe
+right join nha_cung_cap on dang_ky_cc.ma_nha_cc = nha_cung_cap.ma_nha_cc
+where dang_ky_cc.ma_dk_cc is null;
+
+
+
 
 
 

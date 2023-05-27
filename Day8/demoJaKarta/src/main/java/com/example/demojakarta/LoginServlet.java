@@ -16,13 +16,10 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         if ("admin".equals(username) && "admin".equals(password)) {
-            String name = request.getParameter("username");
-            request.setAttribute("name",name);
+            request.setAttribute("key",username);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Admin.jsp");
             dispatcher.forward(request, response);
         } else {
-//            RequestDispatcher dispatcher = request.getRequestDispatcher("User.jsp");
-//            dispatcher.forward(request, response);
             response.sendRedirect("User.jsp");
         }
     }

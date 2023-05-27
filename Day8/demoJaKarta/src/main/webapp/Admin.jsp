@@ -12,7 +12,7 @@
     <title>Admin</title>
 </head>
     <body>
-        <h1>"Hello <%= request.getAttribute("name") %> "</h1>
+        <h1>"Hello <%= request.getAttribute("key") %> "</h1>
     </body>
 
 </html>
