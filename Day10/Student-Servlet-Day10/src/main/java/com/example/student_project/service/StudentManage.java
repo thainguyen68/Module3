@@ -55,7 +55,7 @@ public class StudentManage {
     public List<Student> searchByName(String name) {
         List<Student> studentsSearch = new ArrayList<>();
         for (Student student : students) {
-            if (student.getName().contains(name)) {
+            if (student.getName().toLowerCase().contains(name.toLowerCase())) {
                 studentsSearch.add(student);
             }
         }

@@ -28,11 +28,23 @@ public class StudentServlet extends HttpServlet {
             case "create":
                 createGet(request, response);
                 break;
+            case "createClass":
+                createClassGet(request, response);
+                break;
             case "update":
                 updateGet(request, response);
                 break;
+            case "updateClass":
+                updateClassGet(request, response);
+                break;
             case "delete":
                 delete(request, response);
+                break;
+            case "deleteClass":
+                deleteClass(request, response);
+                break;
+            case "classes":
+                classGet(request, response);
                 break;
             default:
                 findAdd(request, response);
@@ -49,8 +61,14 @@ public class StudentServlet extends HttpServlet {
             case "create":
                 createPost(request, response);
                 break;
+            case "createClass":
+                createClassPost(request, response);
+                break;
             case "update":
                 updatePost(request, response);
+                break;
+            case "updateClass":
+                updateClassPost(request, response);
                 break;
             case "search":
                 search(request, response);
@@ -83,7 +101,7 @@ public class StudentServlet extends HttpServlet {
 
         // --------------------------->
 
-        Student student = new Student(id, name, age, gender, address, classes );
+        Student student = new Student(id, name, age, gender, address, classes);
         studentManage.addStudent(student);
 
         response.sendRedirect("/students");
@@ -95,7 +113,7 @@ public class StudentServlet extends HttpServlet {
         List<Classes> classes = classManage.getClassList();
         if (student != null) {
             request.setAttribute("student", student);
-            request.setAttribute("classes", classes );
+            request.setAttribute("classes", classes);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("update.jsp");
             requestDispatcher.forward(request, response);
         } else {
@@ -140,4 +158,54 @@ public class StudentServlet extends HttpServlet {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
         requestDispatcher.forward(request, response);
     }
+
+    private void classGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("classes", classManage.getClassList());
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("homeClass.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    private void createClassGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.sendRedirect("createClass.jsp");
+    }
+
+    private void createClassPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        String name = request.getParameter("name");
+        classManage.addClass(new Classes(id, name));
+        response.sendRedirect("/students");
+    }
+
+    private void updateClassGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        Classes classes = classManage.getClassById(id);
+
+        if (classes != null) {
+            request.setAttribute("classes", classes);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("updateClass.jsp");
+            requestDispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/404.jsp");
+        }
+    }
+
+    private void updateClassPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        String name = request.getParameter("name");
+        Classes classes = classManage.getClassById(id);
+        if (classes != null) {
+            classes.setIdClass(id);
+            classes.setNameClass(name);
+            response.sendRedirect("/students");
+        } else {
+            response.sendRedirect("/404.jsp");
+        }
+    }
+
+    private void deleteClass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        classManage.deleteById(id);
+        response.sendRedirect("/students");
+    }
+
 }

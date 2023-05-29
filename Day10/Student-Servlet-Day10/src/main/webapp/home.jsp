@@ -20,11 +20,13 @@
 <div class="container">
     <h1 style="text-align: center; margin-top: 50px;"> List Students </h1>
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-2">
             <a class="btn btn-primary" style="text-decoration: none; color: white" href="/students?action=create">Create
                 new student</a>
         </div>
-
+        <div class="col-lg-6">
+            <a class="btn btn-success" style="text-decoration: none; color: white" href="/students?action=classes">Action Class</a>
+        </div>
 
         <div class="col-lg-4">
             <form action="/students?action=search" method="post">
@@ -32,6 +34,8 @@
                 <button class="btn btn-info" type="submit">Search</button>
             </form>
         </div>
+
+
     </div>
     <table class="table table-striped">
         <thead>

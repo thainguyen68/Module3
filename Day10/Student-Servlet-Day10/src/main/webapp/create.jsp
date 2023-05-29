@@ -55,9 +55,8 @@
                     </option>
                 </c:forEach>
             </select>
-<%--            <label for="classes" class="form-label">Classes</label>--%>
-<%--            <input type="text" class="form-control" name="classes" id="classes" placeholder="Enter classes">--%>
         </div>
+
         <div class="mb-3">
             <button class="btn btn-primary" type="submit">Create</button>
             <a class="btn btn-secondary" href="/students">Back to home</a>
