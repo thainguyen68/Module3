@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>HOME</title>
+    <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -18,24 +18,21 @@
 </head>
 <body>
 <div class="container">
-    <h1 style="text-align: center; margin-top: 50px;"> List Students </h1>
+    <h1 style="text-align: center">List Students</h1>
     <div class="row">
         <div class="col-lg-2">
             <a class="btn btn-primary" style="text-decoration: none; color: white" href="/students?action=create">Create
                 new student</a>
         </div>
         <div class="col-lg-6">
-            <a class="btn btn-success" style="text-decoration: none; color: white" href="/students?action=classes">Action Class</a>
+            <a class="btn btn-primary" style="text-decoration: none; color: white" href="/classes">Home Classes</a>
         </div>
-
         <div class="col-lg-4">
             <form action="/students?action=search" method="post">
                 <input type="text" name="search">
                 <button class="btn btn-info" type="submit">Search</button>
             </form>
         </div>
-
-
     </div>
     <table class="table table-striped">
         <thead>
@@ -45,7 +42,7 @@
             <th>Age</th>
             <th>Gender</th>
             <th>Address</th>
-            <th>Class</th>
+            <th>Classes</th>
             <th colspan="2" style="text-align: center">Action</th>
         </tr>
         </thead>
@@ -58,7 +55,7 @@
                 <td>${s.age}</td>
                 <td>${s.gender}</td>
                 <td>${s.address}</td>
-                <td>${s.classes.toString()}</td>
+                <td>${s.classes.name}</td>
                 <td>
                     <a class="btn btn-warning" href="/students?action=update&&id=${s.id}">Update</a>
                 </td>

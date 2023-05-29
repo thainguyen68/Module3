@@ -6,10 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Update Student</title>
+    <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="container">
-    <h1 style="text-align: center; margin-top: 50px;">Form update student</h1>
+    <h1 style="text-align: center">Form update student</h1>
     <form style="width: 600px; margin: auto"
           action="/students?action=update&&id=${student.id}" method="post">
         <div class="mb-3">
@@ -41,20 +41,19 @@
             <input type="text" class="form-control" id="address" name="address"
                    placeholder="Enter address" value="${student.address}">
         </div>
-
-        <%-----------------------------------------------------------%>
         <div class="mb-3">
-            <label for="class" class="form-label" >Class</label >
-            <select name="classes" class="form-select" id="class" >
-                <c:forEach var="c" items="${classes}">
-                    <option value="${c.idClass}" ${student.getClasses().getNameClass() == c.nameClass ? 'selected' : ''}>
-                            ${c.nameClass}
+            <label for="classes" class="form-label">Classes</label>
+            <select class="form-select" id="classes" name="classes"
+                    aria-label="Default select example">
+                <option selected>--- Choice classes ---</option>
+                <c:forEach items="${classes}" var="c">
+                    <option value="${c.id}" ${student.getClasses().getId() == c.id ? 'selected' : ''}>
+                            ${c.name}
                     </option>
                 </c:forEach>
             </select>
+            
         </div>
-
-
         <div class="mb-3">
             <button class="btn btn-primary" type="submit">Update</button>
             <a class="btn btn-secondary" href="/students">Back to home</a>
