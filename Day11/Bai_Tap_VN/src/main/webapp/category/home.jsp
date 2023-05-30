@@ -25,7 +25,7 @@
                 new classes</a>
         </div>
         <div class="col-lg-8">
-            <a class="btn btn-primary" style="text-decoration: none; color: white" href="/categories">Back to students</a>
+            <a class="btn btn-primary" style="text-decoration: none; color: white" href="/products">Back to students</a>
         </div>
     </div>
     <table style="width: 700px; margin: auto" class="table table-striped">

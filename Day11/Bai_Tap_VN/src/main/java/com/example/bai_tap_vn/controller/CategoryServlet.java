@@ -1,6 +1,7 @@
 package com.example.bai_tap_vn.controller;
 
 import com.example.bai_tap_vn.model.Category;
+import com.example.bai_tap_vn.model.Product;
 import com.example.bai_tap_vn.service.CategoryService;
 import com.example.bai_tap_vn.service.ProductService;
 
@@ -8,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.time.LocalDate;
 
 @WebServlet(name = "CategoryServlet", urlPatterns = "/categories")
 public class CategoryServlet extends HttpServlet {
@@ -57,13 +59,53 @@ public class CategoryServlet extends HttpServlet {
         request.setAttribute("categories", categoryService.getCategoryList());
         requestDispatcher.forward(request, response);
     }
-    private void createGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
-    private void createPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
-    private void updateGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
-    private void updatePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
-    private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    private void createGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("categories", categoryService.getCategoryList());
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/category/create.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    private void createPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        String name = request.getParameter("name");
+
+        Category category = new Category(id,name);
+        categoryService.addCategory(category);
+        response.sendRedirect("/products");
+
+    }
+
+    private void updateGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
 
+        Category category = categoryService.getById(id);
+
+        if (category != null) {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/category/update.jsp");
+            request.setAttribute("categories", category);
+            requestDispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/404.jsp");
+        }
+    }
+
+    private void updatePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        String name = request.getParameter("name");
+
+        Category category = categoryService.getById(id);
+
+        if (category != null) {
+            category.setName(name);
+            response.sendRedirect("/categories");
+        } else {
+            response.sendRedirect("/404.jsp");
+        }
+    }
+
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
         Category category = categoryService.getById(id);
         if (category != null) {
             categoryService.deleteById(id);
@@ -72,5 +114,9 @@ public class CategoryServlet extends HttpServlet {
         } else {
             response.sendRedirect("/404.jsp");
         }
+    }
+
+    private  void countQuantity(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }
