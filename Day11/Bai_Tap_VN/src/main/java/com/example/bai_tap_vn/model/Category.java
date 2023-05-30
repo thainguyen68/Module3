@@ -3,6 +3,15 @@ package com.example.bai_tap_vn.model;
 public class Category {
     private Long id;
     private String name;
+    private int quantity = 0;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     public Category() {
     }

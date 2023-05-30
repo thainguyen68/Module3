@@ -33,6 +33,7 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>QUANTITY</th>
             <th colspan="2" style="text-align: center; width: 33%">Action</th>
         </tr>
         </thead>
@@ -42,6 +43,7 @@
             <tr>
                 <td>${c.id}</td>
                 <td>${c.name}</td>
+                <td>${c.quantity}</td>
                 <td>
                     <a class="btn btn-warning" href="/categories?action=update&&id=${c.id}">Update</a>
                 </td>

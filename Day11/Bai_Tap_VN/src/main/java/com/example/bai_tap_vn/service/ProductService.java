@@ -3,17 +3,18 @@ package com.example.bai_tap_vn.service;
 import com.example.bai_tap_vn.model.Category;
 import com.example.bai_tap_vn.model.Product;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService {
     private final List<Product> productList;
     private static ProductService productService;
-    private final Product product = new Product();
+//    private final Product product = new Product();
 
     public ProductService() {
         productList = new ArrayList<>();
-        productList.add(new Product(1L,"ip1",6.8,product.getDate(),new Category(1L,"1A")));
+        productList.add(new Product(1L,"ip1",6.8, LocalDate.now(),new Category(1L,"1A")));
     }
 
     public static ProductService getInstance() {

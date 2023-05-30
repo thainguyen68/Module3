@@ -9,7 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.util.List;
 
 @WebServlet(name = "CategoryServlet", urlPatterns = "/categories")
 public class CategoryServlet extends HttpServlet {
@@ -55,10 +55,24 @@ public class CategoryServlet extends HttpServlet {
     }
 
     private void findAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/category/home.jsp");
-        request.setAttribute("categories", categoryService.getCategoryList());
-        requestDispatcher.forward(request, response);
+//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/category/home.jsp");
+//        request.setAttribute("categories", categoryService.getCategoryList());
+//        requestDispatcher.forward(request, response);
+        List<Category> categoryList = CategoryService.getInstance().getCategoryList();
+        List<Product> productList = ProductService.getInstance().getProductList();
+        for (Category category : categoryList) {
+            int i = 0;
+            for (Product product : productList) {
+                if (category.getName().equals(product.getCategory().getName())) {
+                    ++i;
+                    category.setQuantity(i);
+                }
+            }
+        }
+        request.setAttribute("categories", categoryList);
+        request.getRequestDispatcher("/category/home.jsp").forward(request, response);
     }
+
 
     private void createGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("categories", categoryService.getCategoryList());
