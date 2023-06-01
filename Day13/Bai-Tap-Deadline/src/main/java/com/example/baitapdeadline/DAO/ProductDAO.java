@@ -14,6 +14,7 @@ import java.util.List;
 
 public class ProductDAO {
     private final Connection connection;
+    private static ProductDAO productDAO;
     private final CategoryService categoryService = CategoryService.getInstance();
     private final String SELECT_ALL = "select * from product;";
     private final String SELECT_BY_ID = "select * from product where id = ?;";
@@ -25,7 +26,12 @@ public class ProductDAO {
     public ProductDAO() {
         connection = MyConnection.getConnection();
     }
-
+    public static ProductDAO getInstance() {
+        if (productDAO == null) {
+            productDAO = new ProductDAO();
+        }
+        return productDAO;
+    }
     public List<Product> findAll() {
         List<Product> productList = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
@@ -121,5 +127,24 @@ public class ProductDAO {
         return productList;
     }
 
-
+    public void updateQuantityDecrease(int id, int quantity) {
+        String query = "update product set quantity = quantity - ? where id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, quantity);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateQuantityIncrease(int id, int quantity) {
+        String query = "update product set quantity = quantity + ? where id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, quantity);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
