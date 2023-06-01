@@ -1,17 +1,16 @@
-package com.example.student_project.DAO.connection;
+package com.example.baitapdeadline.DAO.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class MyConnection {
+    private static final String jdbcURL = "jdbc:mysql://localhost:3306/product_db?useSSL=false";
 
-        private static final String jdbcURL = "jdbc:mysql://localhost:3306/student_c02_jdbc?useSSL=false";
+    private static final String jdbcUsername = "root";
 
-        private static final String jdbcUsername = "root";
+    private static final String jdbcPassword = "12345678";
 
-        private static final String jdbcPassword = "12345678";
-
-        private static Connection connection;
+    private static Connection connection;
 
     public static Connection getConnection() {
         if (connection == null) {
@@ -24,4 +23,5 @@ public class MyConnection {
         }
         return connection;
     }
+
 }

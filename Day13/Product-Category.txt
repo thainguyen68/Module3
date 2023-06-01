@@ -1,0 +1,16 @@
+- Lớp Product: id, name, price, quantity, Category
+- Lớp Category: id, name
+- Xây dựng chương trình cơ bản cho 1 cửa hàng bán hàng
+	+ Thao tác cơ bản với Product
+	+ Thao tác cơ bản với Category
+	+ Mua hàng:
+		- Số lượng mua lớn hơn thì thông báo
+		- Số lượng mua âm thì thông báo
+		- Số lượng phù hợp thì thông báo thêm giỏ hàng thành công
+	+ Giỏ hàng:
+		- Hiển thị sản phẩm đã mua trước đó: có thể có nhiều sản phẩm
+		- Số lượng sản phẩm đúng với mua trc đó
+		- Tổng tiền: số lượng * đơn giá sản phẩm
+* Nâng cao:
+	+ Cho phép thay đổi số lượng sản phẩm trong giỏ hàng (khi thay đổi thì bên trang chủ cũng thay đổi 	theo)
+	+ Xóa được sản phẩm trong giỏ hàng (khi xóa thì hồi số lượng về sản phẩm ở trang chủ)
