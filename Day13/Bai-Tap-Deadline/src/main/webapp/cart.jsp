@@ -45,7 +45,7 @@
             </td>
             <td>
                 <button style="border: none; background-color:white"><a class="btn btn-danger"
-                                                                        href="/carts?action=delete&id=${c.id}&quantity=${c.quantity}&productId=${c.product.id}">Cancel</a>
+                         href="/carts?action=delete&id=${c.id}&quantity=${c.quantity}&productId=${c.product.id}">Delete</a>
                 </button>
             </td>
         </tr>

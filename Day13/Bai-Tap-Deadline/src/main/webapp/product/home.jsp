@@ -24,8 +24,11 @@
             <a class="btn btn-success" style="text-decoration: none; color: white" href="/products?action=create">Create
                 new product</a>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
             <a class="btn btn-warning" style="text-decoration: none; color: white" href="/categories">Home Category</a>
+        </div>
+        <div class="col-lg-4">
+            <a class="btn btn-info" style="text-decoration: none; color: white" href="/carts">Home Cart</a>
         </div>
         <div class="col-lg-4">
             <form action="/products?action=search" method="post">

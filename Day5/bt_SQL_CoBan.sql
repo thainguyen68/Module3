@@ -1,5 +1,5 @@
 create database bt_sql_coban;
-use bt_sql_coban;
+use bt_sql_coban;user
 create table loai_hang(
 ma_loai_hang int primary key,
 ten_loai_hang varchar(255) not null

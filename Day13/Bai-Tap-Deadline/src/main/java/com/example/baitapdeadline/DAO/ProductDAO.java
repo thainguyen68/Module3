@@ -64,7 +64,6 @@ public class ProductDAO {
                 int category_id = resultSet.getInt(5);
                 Category category = categoryService.getById(category_id);
                 product = new Product(id, name, price, quantity, category);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
